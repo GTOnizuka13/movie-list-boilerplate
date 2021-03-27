@@ -7,30 +7,29 @@ class App extends React.Component {
     super(props);
     this.state = {
       list:
-      [
-        { title: 'Mean Girls' },
-        { title: 'Hackers' },
-        { title: 'The Grey' },
-        { title: 'Sunshine' },
-        { title: 'Ex Machina' }
-      ]
+        [
+          { title: 'Mean Girls' },
+          { title: 'Hackers' },
+          { title: 'The Grey' },
+          { title: 'Sunshine' },
+          { title: 'Ex Machina' }
+        ]
     };
     this.onSearch = this.onSearch.bind(this);
   }
-// fix always returns first statement no matter what
+  // fix always returns first statement no matter what
   onSearch(searched) {
-    this.state.list.map((item) => (console.log(item.title.includes(searched))))
-    if(this.state.list.map((item) => (item.title.includes(searched)))) {
-      return `Sorry  is unavailable`;
-    }
-    return `Yes we do have !`;
+    let movies = this.state.list.map(function (item) {
+      return item.title;
+    });
+    return alert(movies.includes(searched) ? `Yes, we have ${searched}` : 'Not Available');
   }
 
   render() {
     return (
       <div>
         <h1>Movie List</h1>
-        <SearchMovie movieList={this.state.list} onSearch={this.onSearch}/>
+        <SearchMovie movieList={this.state.list} onSearch={this.onSearch} />
         <MovieList movieList={this.state.list} />
       </div>
     )

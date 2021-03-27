@@ -18,7 +18,7 @@ class SearchMovie extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    alert(this.props.onSearch(this.state.title));
+    return this.props.onSearch(this.state.title);
    // alert('Looking for ' + this.state.title);
   }
 
