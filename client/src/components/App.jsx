@@ -2,6 +2,7 @@ import React from 'react';
 import Movie from './Movie.jsx'
 import MovieList from './MovieList.jsx'
 import SearchMovie from './SearchMovie.jsx'
+import AddMovie from './AddMovie.jsx'
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -16,6 +17,7 @@ class App extends React.Component {
         ]
     };
     this.onSearch = this.onSearch.bind(this);
+    this.addNew = this.addNew.bind(this);
   }
   // fix always returns first statement no matter what
   onSearch(searched) {
@@ -25,10 +27,19 @@ class App extends React.Component {
     return alert(movies.includes(searched) ? `Yes, we have ${searched}` : 'Not Available');
   }
 
+  addNew(newMovie) {
+    let movieList = this.state.list.slice();
+    movieList.push(newMovie);
+    this.setState({
+      title: movieList
+    })
+  }
+
   render() {
     return (
       <div>
         <h1>Movie List</h1>
+        <AddMovie addNew={this.addNew}/>
         <SearchMovie movieList={this.state.list} onSearch={this.onSearch} />
         <MovieList movieList={this.state.list} />
       </div>
