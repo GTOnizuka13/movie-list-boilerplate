@@ -14,34 +14,58 @@ class App extends React.Component {
           { title: 'The Grey' },
           { title: 'Sunshine' },
           { title: 'Ex Machina' }
-        ]
+        ],
+      searched: []
     };
     this.onSearch = this.onSearch.bind(this);
     this.addNew = this.addNew.bind(this);
+    this.displayList = this.displayList.bind(this);
   }
   // fix always returns first statement no matter what
   onSearch(searched) {
-    let movies = this.state.list.map(function (item) {
-      return item.title;
+    let movies = this.state.list.filter(function (item) {
+      let movie = item.title.toLowerCase();
+      searched = searched.toLowerCase();
+      if (movie.startsWith(searched)) {
+        console.log(item);
+        return movie;
+      }
     });
-    return alert(movies.includes(searched) ? `Yes, we have ${searched}` : 'Not Available');
+    console.log(movies);
+    this.setState({
+      searched: movies
+    }
+    );
+  }
+  displayList() {
+    return this.state.list.filter(item => item.title);
   }
 
   addNew(newMovie) {
     let movieList = this.state.list.slice();
-    movieList.push(newMovie);
-    this.setState({
-      title: movieList
+
+    let isCopy = movieList.find(function (item) {
+      if (item.title === newMovie) {
+        return true;
+      }
     })
+    if (!isCopy) {
+      movieList.push({ title: newMovie });
+      this.setState({
+        list: movieList
+      })
+    }
   }
+
+
 
   render() {
     return (
       <div>
         <h1>Movie List</h1>
-        <AddMovie addNew={this.addNew}/>
+        <AddMovie addNew={this.addNew} />
         <SearchMovie movieList={this.state.list} onSearch={this.onSearch} />
-        <MovieList movieList={this.state.list} />
+        <MovieList movieList={this.state.searched.length === 0 ? this.state.list : this.state.searched} onSearch={this.onSearch} />
       </div>
     )
   }

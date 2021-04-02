@@ -10,22 +10,17 @@ class SearchMovie extends React.Component {
     };
     // bind 'this' to the constructor function
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(event) {
-    this.setState({title: event.target.value})
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    return this.props.onSearch(this.state.title);
-   // alert('Looking for ' + this.state.title);
+    console.log(event.target.value);
+    this.setState({title: event.target.value});
+    this.props.onSearch(event.target.value);
   }
 
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form >
         <label>
           Looking for Something?
           <input type="text" value={this.state.title} onChange={this.handleChange}/>

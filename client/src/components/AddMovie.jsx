@@ -18,7 +18,8 @@ class AddMovie extends React.Component {
   clickHandler(event) {
     event.preventDefault();
     console.log(event)
-    console.log(this.props.addNew(this.state))
+    this.props.addNew(this.state.title);
+
   }
 
   render() {
